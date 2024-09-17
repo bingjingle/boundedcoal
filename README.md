@@ -7,5 +7,7 @@ In the folder standardsyndata, we mainly test for the case of syn2. We generate 
 
 Here's the summary for Ne(t):
 syn1: Ne(t)=1
+
 syn2: Ne(t)=25exp(-5t)
+
 syn2_2: Ne(t)=25exp(-5t)+1
