@@ -1,6 +1,6 @@
 # boundedcoal
 In the folder boundsyndata, we generate synthetic datasets from bounded coalescent models.
-syn1 and syn2_2 works well, however, syn2 doesn't work well due to the right tails of Ne(t) approximating zero.
+syn1 works well, however, syn2 and syn2_2 doesn't work well. Not sure the reason currently.
 
 
 In the folder standardsyndata, we mainly test for the case of syn2. We generate datasets based on standard coalscent model of syn2's Ne(t) and debug the code. Everything is under standard coalescent models.
