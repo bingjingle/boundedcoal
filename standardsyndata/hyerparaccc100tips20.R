@@ -21,6 +21,22 @@ points_inhomo=c(0.002404551, 0.003284109, 0.014545722, 0.015916560, 0.016345294,
                 0.378707698, 0.395722036, 0.401328539, 0.403371599, 0.427609114, 0.450158221, 0.464668061, 0.488975108, 0.494816686, 0.499820467, 
                 0.506044204, 0.516651251, 0.522448434, 0.537757906, 0.557675146, 0.578180530, 0.581644027, 0.588355957, 0.603176719, 0.610313729, 
                 0.639500622, 0.652845651, 0.702422905, 0.760440888, 0.799546757, 0.910557807, 0.959638933, 1.058403095, 1.244499064)
+##############first INLA##############################
+library("phylodyn")
+out<-BNPR(list(coal_times=points_inhomo,samp_times=c(0),n_sampled=c(100)),lengthout=50,prec_alpha = 0.1,
+          prec_beta = 0.1)
+#plot_BNPR(out)
+inten2<-function(t){
+  return (25*exp(-5*t))}
+x=seq(0,max(points_inhomo),length.out=101)
+intensity=inten2(x)
+
+plot(out$summary$time,out$summary$quant0.5,ylim=c(0,100))
+lines(out$summary$time,out$summary$quant0.975)
+lines(out$summary$time,out$summary$quant0.025)
+lines(x,intensity)
+########################end##############################
+
 
 days=c(0,points_inhomo)
 
