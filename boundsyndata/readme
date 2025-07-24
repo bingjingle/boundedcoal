@@ -1,3 +1,0 @@
-syn1: for Ne(t)=1
-syn2: for Ne(t)=25exp(-5t)
-syn2_2: for Ne(t)=25exp(-5t)+1
