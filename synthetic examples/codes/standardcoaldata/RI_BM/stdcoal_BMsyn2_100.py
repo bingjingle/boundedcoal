@@ -171,7 +171,7 @@ ones_vec = np.ones(Nfinal, dtype=np.float64)
 ones_vec[Ngrid + N:] = diff
 ones_vec = ones_vec.reshape(-1, 1)
 
-jitter = 1e-8
+jitter = 1e-9
     
 cov_K_jittered = cov_K + np.eye(Nfinal) * jitter
 
