@@ -171,7 +171,7 @@ ones_vec = np.ones(Nfinal, dtype=np.float64)
 ones_vec[Ngrid + N:] = diff
 ones_vec = ones_vec.reshape(-1, 1)
 
-jitter = 1e-6
+jitter = 1e-8
     
 cov_K_jittered = cov_K + np.eye(Nfinal) * jitter
 
@@ -192,7 +192,7 @@ print("Condition number:", np.linalg.cond(cov_K))
 print("dtype:", cov_K.dtype)
 print("scalar d:", d.item())
 
-noise_var = 1e-19
+noise_var = 1e-16
 K = cov_K * noise_var + np.eye(Nfinal)
 K = K.astype(np.float64)
 L, lower = cho_factor(K, lower=True)
