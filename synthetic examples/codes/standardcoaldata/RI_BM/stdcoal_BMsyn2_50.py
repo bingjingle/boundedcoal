@@ -171,7 +171,7 @@ ones_vec = np.ones(Nfinal, dtype=np.float64)
 ones_vec[Ngrid + N:] = diff
 ones_vec = ones_vec.reshape(-1, 1)
 
-jitter = 1e-7
+jitter = 1e-6
     
 cov_K_jittered = cov_K + np.eye(Nfinal) * jitter
 
@@ -192,7 +192,7 @@ print("Condition number:", np.linalg.cond(cov_K))
 print("dtype:", cov_K.dtype)
 print("scalar d:", d.item())
 
-noise_var = 1e-16
+noise_var = 1e-19
 K = cov_K * noise_var + np.eye(Nfinal)
 K = K.astype(np.float64)
 L, lower = cho_factor(K, lower=True)
@@ -249,4 +249,4 @@ l2_dist1=sum((np.array(med).squeeze()-truth)**2)
 coverage1=np.sum((truth>=low.squeeze()) * (truth<=high.squeeze()))/len(x4)
 width1=sum(high-low)/Ngrid
 
-np.savez('/scratch/groups/juliapr/output_Bingjing/stdcoaldata/syn2/RI_BM/syn2_tips50_data'+sys.argv[1]+'1e7.npz', aaa=g_mk_list3,aa=g_mk_list2,c=points_inhomo,d=x4,e=truth,f=coverage1,i=noise_var,j=l2_dist1,p=timerun_10000,q=width1,s=theta_list)
+np.savez('/scratch/groups/juliapr/output_Bingjing/stdcoaldata/syn2/RI_BM/syn2_tips50_data'+sys.argv[1]+'.npz', aaa=g_mk_list3,aa=g_mk_list2,c=points_inhomo,d=x4,e=truth,f=coverage1,i=noise_var,j=l2_dist1,p=timerun_10000,q=width1,s=theta_list)
