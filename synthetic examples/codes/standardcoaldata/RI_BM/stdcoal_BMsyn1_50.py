@@ -246,4 +246,4 @@ truth=inten2(x4)
 l2_dist1=sum((np.array(med).squeeze()-truth)**2)
 coverage1=np.sum((truth>=low.squeeze()) * (truth<=high.squeeze()))/len(x4)
 width1=sum(high-low)/Ngrid
-np.savez('/scratch/groups/juliapr/output_Bingjing/stdcoaldata/syn1/RI_BM/syn1_tips50_data'+sys.argv[1]+'test14.npz', aaa=g_mk_list3,aa=g_mk_list2,c=points_inhomo,d=x4,e=truth,f=coverage1,i=noise_var,j=l2_dist1,p=timerun_10000,q=width1,s=theta_list)
+np.savez('/scratch/groups/juliapr/output_Bingjing/stdcoaldata/syn1/RI_BM/syn1_tips50_data'+sys.argv[1]+'.npz', aaa=g_mk_list3,aa=g_mk_list2,c=points_inhomo,d=x4,e=truth,f=coverage1,i=noise_var,j=l2_dist1,p=timerun_10000,q=width1,s=theta_list)
