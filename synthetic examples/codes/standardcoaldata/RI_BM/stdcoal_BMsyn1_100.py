@@ -169,7 +169,7 @@ ones_vec = np.ones(Nfinal, dtype=np.float64)
 ones_vec[Ngrid + N:] = diff
 ones_vec = ones_vec.reshape(-1, 1)
 
-jitter = 1e-6
+jitter = 1e-8
     
 cov_K_jittered = cov_K + np.eye(Nfinal) * jitter
 
@@ -246,4 +246,4 @@ truth=inten2(x4)
 l2_dist1=sum((np.array(med).squeeze()-truth)**2)
 coverage1=np.sum((truth>=low.squeeze()) * (truth<=high.squeeze()))/len(x4)
 width1=sum(high-low)/Ngrid
-np.savez('/scratch/groups/juliapr/output_Bingjing/stdcoaldata/syn1/RI_BM/syn1_tips100_data_'+sys.argv[1]+'1e6.npz', aaa=g_mk_list3,aa=g_mk_list2,c=points_inhomo,d=x4,e=truth,f=coverage1,i=noise_var,j=l2_dist1,p=timerun_10000,q=width1,s=theta_list)
+np.savez('/scratch/groups/juliapr/output_Bingjing/stdcoaldata/syn1/RI_BM/syn1_tips100_data_'+sys.argv[1]+'.npz', aaa=g_mk_list3,aa=g_mk_list2,c=points_inhomo,d=x4,e=truth,f=coverage1,i=noise_var,j=l2_dist1,p=timerun_10000,q=width1,s=theta_list)
