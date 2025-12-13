@@ -1,4 +1,3 @@
-
 ########################Carson####################################################################
 ########################syn1######################################################################
 ########################ntip=100##################################################################
@@ -10,21 +9,19 @@ Nsim=3000
 ntip=100
 tau=0.5
 start_time <- Sys.time()
-coal_time2=replicate(ntip-1, numeric(Nsim) ) 
+coal_time1=replicate(ntip-1, numeric(Nsim) ) 
 while(Nsim){
-  
   t=bounded_sample_phylo(c(tau),c(ntip),1,0)
-  coal_time2[Nsim,]=cumsum(coalescent.intervals(t$phylo)$interval.length)
+  coal_time1[Nsim,]=cumsum(coalescent.intervals(t$phylo)$interval.length)
   Nsim=Nsim-1
 }
 end_time <- Sys.time()
 time_taken <- end_time - start_time
 time_taken <- as.numeric(time_taken, units = "secs")
 time_taken/Nsim_ori
-
 setwd("C:/Users/bingj/OneDrive - Stanford/bounded coalescent/simulationcomparisonnew")
 nam <- paste("carsonsyn1data_ntip", ntip, "_samplesize", Nsim_ori,"_tau", tau, sep = "")
-save(coal_time2, file=paste(nam,'.rda',sep=''))
+save(coal_time1, file=paste(nam,'.rda',sep=''))
 
 ##################Thinning#########################################################################
 ##################syn1#############################################################################
@@ -36,7 +33,7 @@ n_sampled = c(ntip)
 tau=0.5
 Nsim_ori=3000
 Nsim=3000
-coal_time=replicate(ntip-1, numeric(Nsim) ) 
+coal_time2=replicate(ntip-1, numeric(Nsim) ) 
 
 r_func <- function(k, j) {
   if(j == 1) return(1)
@@ -87,18 +84,44 @@ while(Nsim){
     }
   }
   
-  coal_time[Nsim,]=simulation4
+  coal_time2[Nsim,]=simulation4
   Nsim=Nsim-1
 }
 end_time <- Sys.time()
 time_taken <- end_time - start_time
 time_taken <- as.numeric(time_taken, units = "secs")
 time_taken/Nsim_ori
-
 setwd("C:/Users/bingj/OneDrive - Stanford/bounded coalescent/simulationcomparisonnew")
 nam <- paste("thinsyn1data_ntip",ntip, "_samplesize", Nsim_ori,"_tau", tau, sep = "")
-save(coal_time, file=paste(nam,'.rda',sep=''))
+save(coal_time2, file=paste(nam,'.rda',sep=''))
 
+
+##################Naive rejection#########################################################################
+##################syn1#############################################################################
+########################ntip=100###################################################################
+########################tau=0.5####################################################################
+ntip=100
+tau=0.5
+Nsim_ori=3000
+Nsim=3000
+coal_time3=replicate(ntip-1, numeric(Nsim) )
+start_time <- Sys.time()
+while(Nsim){
+  tree_s<-rcoal(ntip) #from coalescent with Ne=1, for more general Ne trajectories, use https://github.com/JuliaPalacios/phylodyn/blob/master/vignettes/Simulation.Rmd
+  times_s<-coalescent.intervals(tree_s)
+  simulation<-cumsum(times_s$interval.length)
+  if(simulation[ntip-1]<tau){
+    coal_time3[Nsim,]=simulation
+    Nsim=Nsim-1
+  }
+}
+end_time <- Sys.time()
+time_taken <- end_time - start_time
+time_taken <- as.numeric(time_taken, units = "secs")
+time_taken/Nsim_ori
+setwd("C:/Users/bingj/OneDrive - Stanford/bounded coalescent/simulationcomparisonnew")
+nam <- paste("naivesyn1data_ntip",ntip, "_samplesize", Nsim_ori,"_tau", tau, sep = "")
+save(coal_time3, file=paste(nam,'.rda',sep=''))
 
 
 ##################Thinning#########################################################################
@@ -111,7 +134,7 @@ n_sampled = c(ntip)
 tau=0.71
 Nsim_ori=3000
 Nsim=3000
-coal_time1=replicate(ntip-1, numeric(Nsim) ) 
+coal_time4=replicate(ntip-1, numeric(Nsim) ) 
 
 
 r_func <- function(k, j) {
@@ -163,7 +186,7 @@ while(Nsim){
       }
     }
   }
-  coal_time1[Nsim,]=simulation4
+  coal_time4[Nsim,]=simulation4
   Nsim=Nsim-1
 }
 end_time <- Sys.time()
@@ -173,47 +196,18 @@ time_taken/Nsim_ori
 
 setwd("C:/Users/bingj/OneDrive - Stanford/bounded coalescent/simulationcomparisonnew")
 nam <- paste("thinsyn3data_ntip",ntip, "_samplesize", Nsim_ori,"_tau", tau, sep = "")
-save(coal_time1, file=paste(nam,'.rda',sep=''))
-
-##################Naive rejection#########################################################################
-##################syn1#############################################################################
-########################ntip=100###################################################################
-########################tau=0.5####################################################################
-ntip=100
-tau=0.5
-Nsim_ori=3000
-Nsim=3000
-coal_time3=replicate(ntip-1, numeric(Nsim) )
-start_time <- Sys.time()
-while(Nsim){
-  tree_s<-rcoal(ntip) #from coalescent with Ne=1, for more general Ne trajectories, use https://github.com/JuliaPalacios/phylodyn/blob/master/vignettes/Simulation.Rmd
-  times_s<-coalescent.intervals(tree_s)
-  simulation<-cumsum(times_s$interval.length)
-  if(simulation[ntip-1]<tau){
-    coal_time3[Nsim,]=simulation
-    Nsim=Nsim-1
-  }
-}
-end_time <- Sys.time()
-time_taken <- end_time - start_time
-time_taken <- as.numeric(time_taken, units = "secs")
-time_taken/Nsim_ori
-
-setwd("C:/Users/bingj/OneDrive - Stanford/bounded coalescent/simulationcomparisonnew")
-nam <- paste("naivesyn1data_ntip",ntip, "_samplesize", Nsim_ori,"_tau", tau, sep = "")
-save(coal_time3, file=paste(nam,'.rda',sep=''))
-
+save(coal_time4, file=paste(nam,'.rda',sep=''))
 
 ##################Naive rejection#########################################################################
 ##################syn3#############################################################################
 ########################ntip=50###################################################################
 ########################tau=0.71####################################################################
-ntip=50
+ntip=100
 n_sampled = c(ntip)
 tau=0.71
 Nsim_ori=3000
 Nsim=3000
-coal_time4=replicate(ntip-1, numeric(Nsim) ) 
+coal_time5=replicate(ntip-1, numeric(Nsim) ) 
 #require(combinat)
 com=rep(0,ntip-1)
 for (k in 1:(ntip-1)){
@@ -231,7 +225,7 @@ while(Nsim){
     
   }
   if(simulation4[ntip]<tau){
-    coal_time4[Nsim,]=simulation4[2:ntip]
+    coal_time5[Nsim,]=simulation4[2:ntip]
     Nsim=Nsim-1
   }
 }
@@ -239,32 +233,30 @@ end_time <- Sys.time()
 time_taken <- end_time - start_time
 time_taken <- as.numeric(time_taken, units = "secs")
 time_taken/Nsim_ori
-
 setwd("C:/Users/bingj/OneDrive - Stanford/bounded coalescent/simulationcomparisonnew")
 nam <- paste("naivesyn3data_ntip",ntip, "_samplesize", Nsim_ori,"_tau", tau, sep = "")
-save(coal_time4, file=paste(nam,'.rda',sep=''))
-
-
+save(coal_time5, file=paste(nam,'.rda',sep=''))
 
 ###############################comparison of histogram and mean&std###################################
 #################################################histogram comparison
-
+#histogram of the median tip
 jj=50
 par(mfrow = c(2,1))
-hist(coal_time[,jj], 
+#coal_time2 is syn1_tau0.5_ntip100_thinning
+hist(coal_time2[,jj], 
      breaks = 20, 
      col = rgb(1, 0, 0, 0.5), # semi-transparent red
      main = expression("Thinning: a histogram of " ~ T[51]^B),
      xlab = "Time", 
      freq = FALSE) 
-#hist(coal_time2[,jj], 
+#hist(coal_time1[,jj], 
 #     breaks = 20, 
 #     col = rgb(0, 0, 1, 0.5), # semi-transparent blue
 #     main = expression("Carson: a histogram of " ~ T[51]^B),
 #     xlab = "Time", 
 #     freq = FALSE           # match freq=FALSE or =TRUE from first
 #)  
-
+#coal_time3 is syn1_tau0.5_ntip100_naiverejection
 hist(coal_time3[,jj], 
      breaks = 20, 
      col = rgb(0, 1, 0, 0.5), # semi-transparent blue
@@ -272,10 +264,12 @@ hist(coal_time3[,jj],
      xlab = "Time", 
      freq = FALSE           # match freq=FALSE or =TRUE from first
 )  
-mean(coal_time[,jj])
+#mean(coal_time1[,jj])
 mean(coal_time2[,jj])
 mean(coal_time3[,jj])
-sd(coal_time[,jj])
+#sd(coal_time1[,jj])
 sd(coal_time2[,jj])
 sd(coal_time3[,jj])
+
+
 
