@@ -1,1 +1,3 @@
-
+our algorithm.R is the Rcode implementation for Algorithm 1, which is a combination of time transformation and thinning.
+naivesyn1data_ntip100_samplesize3000_tau0.5.rda and thinsyn1data_ntip100_samplesize3000_tau0.5.rda are simulated datasets for figure 1 and table 2.
+comparison of three methods.R is the partial code to generate table 1.  
