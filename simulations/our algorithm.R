@@ -3,6 +3,8 @@
 ########################ntip=100###################################################################
 ########################tau=0.71####################################################################
 ####################user defined#####################################
+
+###inten2 is Ne(t)
 inten2 <- function(t) {
   25 * exp(-5 * t)
 }
@@ -69,3 +71,4 @@ sim_bc<-function(inten2,inten2_inv,inten2_inv_cum,inten2_inv_cum_inv,ntip,tau,Ns
 }
 
 sim_bc(inten2,inten2_inv,inten2_inv_cum,inten2_inv_cum_inv,ntip,tau,Nsim)
+
