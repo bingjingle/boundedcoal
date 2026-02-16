@@ -15,6 +15,8 @@
 #' 
 #' @examples
 #' coalsim_bounded(0:2, 3:1, unif_traj, bound=1)
+library("phylodyn")
+library("ape")
 coalsim_bounded <- function(samp_times, n_sampled, traj, bound, ...)
 {
   #This function is not functional for heterochronous sampling
