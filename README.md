@@ -84,27 +84,21 @@ Subfolders:
 ---
 
 
-##########Python File Naming Convention
-****_**_bound_syn*_**_**.py
-→ Inference under the bounded coalescent likelihood
+## Python File Naming
 
-****_**_std_syn*_**_**.py
-→ Inference under the standard coalescent likelihood
+- ****_**_bound_syn*_**_**.py  
+  Inference under bounded coalescent likelihood
 
+- ****_**_std_syn*_**_**.py  
+  Inference under standard coalescent likelihood
 
+---
 
-
-
-
-
-🧪 Reproducibility
+## Reproducibility
 
 Each dataset file contains 30 simulated genealogies.
 
-All scripts are organized by:
-
-Model type (standard vs bounded)
-
-Kernel type (RI_BM vs SE)
-
-Effective population size trajectory
+Scripts are organized by:
+- Model type (standard vs bounded)
+- Kernel type (RI_BM vs SE)
+- Effective population size trajectory
