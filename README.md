@@ -34,7 +34,32 @@ File naming convention:
 
 ---
 
+---
 
+## Section 5.2 – Standard Coalescent Experiments
+
+Code location:
+
+boundedcoal/synthetic examples/codes/standardcoaldata
+
+All datasets here are simulated from the standard coalescent model.
+
+Subfolders:
+
+- ./RI_BM  
+  Brownian motion kernels under:
+  - Ne = 1
+  - Ne(t) = 3 exp(-t)
+  - Ne(t) = 25 exp(-5t)
+
+- ./SE  
+  Squared exponential kernels under the same three trajectories.
+
+INLA implementation:
+
+boundedcoal/synthetic examples/codes/standardcoaldata/RI_BM/INLA.R
+
+---
 🔬 Section 5.2: Standard Coalescent Experiments
 All code is located at: boundedcoal/synthetic examples/codes/standardcoaldata
 All datasets in this directory are simulated from the standard coalescent model.
