@@ -1,3 +1,20 @@
+# Bounded Coalescent: Synthetic Experiments
+
+This repository contains all datasets and code used for the synthetic experiments in Sections 5.2 and 5.3.
+
+---
+
+## 📁 Directory Structure
+
+boundedcoal/
+└── synthetic examples/
+├── data/
+└── codes/
+├── standardcoaldata/
+└── boundedcoaldata/
+
+
+
 
 📁 Repository Structure
 
