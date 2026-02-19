@@ -84,7 +84,7 @@ Subfolders:
 ---
 
 
-## Python File Naming
+### Python File Naming
 
 - ****_**_bound_syn*_**_**.py  
   Inference under bounded coalescent likelihood
