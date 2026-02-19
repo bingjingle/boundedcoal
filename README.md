@@ -81,7 +81,6 @@ Subfolders:
 - ./SE  
   Squared exponential kernels under the same three scenarios.
 
----
 
 
 ### Python File Naming
