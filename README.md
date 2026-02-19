@@ -6,12 +6,15 @@ This repository contains all datasets and code used for the synthetic experiment
 
 ## 📁 Directory Structure
 
-boundedcoal/
-└── synthetic examples/
-├── data/
-└── codes/
-├── standardcoaldata/
-└── boundedcoaldata/
+## Directory Structure
+
+- boundedcoal/
+  - synthetic examples/
+    - data/
+    - codes/
+      - standardcoaldata/
+      - boundedcoaldata/
+
 
 
 
