@@ -1,5 +1,6 @@
 
 📁 Repository Structure
+
 boundedcoal/
 └── synthetic examples/
     ├── data/
