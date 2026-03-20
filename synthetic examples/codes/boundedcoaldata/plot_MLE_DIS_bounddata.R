@@ -67,7 +67,7 @@ bnpr<-phylodyn:::BNPR(tree)
 phylodyn:::plot_BNPR(bnpr)
 abline(h=1, col="red", lwd=2)
 
-res1_mcmc<-phylodyn:::mcmc_sampling(data,alg="bound_ESS",nsamp=50000,nburnin=500,ngrid=100,f_init=log(bnpr$effpop)[-1],bound=1)
+res1_mcmc<-phylodyn:::mcmc_sampling(data,alg="bound_ESS",nsamp=50000,nburnin=500,ngrid=100,f_init=log(bnpr$effpop)[-1],bound=bound)
 res2_mcmc<-phylodyn:::mcmc_sampling(data,alg="ESS",nsamp=50000,ngrid=100,nburnin=500)
 
 pdf("plot11.pdf")
@@ -158,7 +158,7 @@ dev.off()
 
 bnpr<-phylodyn:::BNPR(tree)
 phylodyn:::plot_BNPR(bnpr)
-res1_mcmc<-phylodyn:::mcmc_sampling(data,alg="bound_ESS",nsamp=50000,nburnin=500,ngrid=100,f_init=log(bnpr$effpop)[-1],bound=1)
+res1_mcmc<-phylodyn:::mcmc_sampling(data,alg="bound_ESS",nsamp=50000,nburnin=500,ngrid=100,f_init=log(bnpr$effpop)[-1],bound=bound)
 res2_mcmc<-phylodyn:::mcmc_sampling(data,alg="ESS",nsamp=50000,ngrid=100,nburnin=500)
 
 pdf("plot21.pdf")
@@ -256,7 +256,7 @@ phylodyn:::plot_BNPR(bnpr)
 points(seq(0, max(res1$grid), by = .05),
        25 * exp(-5*seq(0, max(res1$grid), by = .05)),
        type = "l", col = "red"
-res1_mcmc<-phylodyn:::mcmc_sampling(data,alg="bound_ESS",nsamp=50000,nburnin=500,ngrid=100,f_init=log(bnpr$effpop)[-1],bound=1)
+res1_mcmc<-phylodyn:::mcmc_sampling(data,alg="bound_ESS",nsamp=50000,nburnin=500,ngrid=100,f_init=log(bnpr$effpop)[-1],bound=bound)
 res2_mcmc<-phylodyn:::mcmc_sampling(data,alg="ESS",nsamp=50000,ngrid=100,nburnin=500)
 
 pdf("plot31.pdf")
