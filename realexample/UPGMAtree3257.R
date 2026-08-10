@@ -145,3 +145,26 @@ for (i in 2:length(bt_adj)) {
 }
 
 save(bt_adj, file='UGPMA3257new.rda')
+
+
+
+
+
+
+
+
+
+
+
+########################################################################################
+setwd("C:/Users/bingj/OneDrive - Stanford/bounded coalescent/realdata")
+tree <- read.tree(file = "UPGMAtree_100.txt")
+bt <- sort(branching.times(tree))
+min_gap <- 1e-4
+bt_adj <- bt
+for (i in 2:length(bt_adj)) {
+  if (bt_adj[i] - bt_adj[i - 1] < min_gap) {
+    bt_adj[i] <- bt_adj[i - 1] + min_gap
+  }
+}
+save(bt_adj, file='UGPMA100new.rda')
