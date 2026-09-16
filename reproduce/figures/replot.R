@@ -11,8 +11,8 @@
 #     source("replot.R"); panel("syn2", "RI_BM")
 #
 # ---- the only things you are likely to want to change ----------------------
-COL_BC  <- "red"     # bounded coalescent
-COL_SC  <- "blue"    # standard coalescent
+COL_BC  <- "#d62728"     # bounded coalescent
+COL_SC  <- "#1f77b4"    # standard coalescent
 ALPHA   <- 0.25      # band fill opacity, as adjustcolor(., alpha.f=) in covid_plot.R
 BAND    <- "eq"      # "eq" = equal-tailed 2.5/97.5% (published); "hpd" = minimal width
 LWD_MED <- 2; LWD_BAND <- 1
@@ -21,15 +21,18 @@ LWD_MED <- 2; LWD_BAND <- 1
 here    <- tryCatch(dirname(normalizePath(sub("^--file=", "", grep("^--file=",
              commandArgs(FALSE), value = TRUE)[1]))), error = function(e) ".")
 if (is.na(here) || !nzchar(here)) here <- "."
-COORD <- file.path(here, "..", "coords")
-OUTD  <- file.path(here, "..", "figures_R")
+
+here<-"~/Documents/boundedcoal/boundedcoal/reproduce/"
+COORD <- file.path(here, "coords")
+OUTD  <- file.path(here, "figures_R")
 dir.create(OUTD, showWarnings = FALSE)
 
 ROWS <- list(syn1 = list(lab = expression(N[e1](t) == 1),           tau = 1.00, ylim = 5),
              syn2 = list(lab = expression(N[e2](t) == 3 * e^-t),    tau = 0.70, ylim = 14),
-             syn3 = list(lab = expression(N[e3](t) == 25 * e^(-5*t)), tau = 0.71, ylim = 120),
-             syn4 = list(lab = expression(N[e4](t) == 25 * e^(-5*t)), tau = 0.55, ylim = 120))
-COLS <- list(RI_BM = "RI-BM", RI_SE = "RI-SE", DIS = "Discrete (phylodyn)")
+             syn3 = list(lab = expression(N[e3](t) == 25 * e^(-5*t)), tau = 0.71, ylim = 120))
+            # syn4 = list(lab = expression(N[e4](t) == 25 * e^(-5*t)), tau = 0.55, ylim = 120))
+#COLS <- list(RI_BM = "RI-BM", RI_SE = "RI-SE", DIS = "Discrete (phylodyn)")
+COLS <- list(RI_BM = "RI-BM", DIS = "Discrete (phylodyn)")
 T0   <- as.Date("2020-06-08")      # covid_plot.R: date of sampling
 
 band_cols <- function(d, lik) {
@@ -58,8 +61,8 @@ panel <- function(tag, key, ylim = NULL, main = NULL) {
     stats::quantile(unlist(d[grep("_hi_", names(d))]), 0.97, na.rm = TRUE)
   tau <- if (!is.null(cfg)) cfg$tau else max(d$x)
   covid <- tag == "covid"
-  plot(NA, xlim = if (covid) c(tau, 0) else c(0, tau), ylim = c(0, ylim),
-       xlab = "Time", ylab = expression(N[e](t)),
+  plot(NA, xlim = c(tau, 0), ylim = c(0, ylim),
+       xlab = if (tag=="syn3") "Time (past to present)" else "", ylab = if (key=="RI_BM") expression(N[e](t)) else "",
        main = if (is.null(main)) COLS[[key]] else main,
        xaxt = if (covid) "n" else "s", bty = "l")
   if (covid) {
@@ -76,8 +79,12 @@ panel <- function(tag, key, ylim = NULL, main = NULL) {
 }
 
 # ---- the 4 x 3 simulation grid ---------------------------------------------
-pdf(file.path(OUTD, "panels_3col.pdf"), width = 10.5, height = 12)
-op <- par(mfrow = c(4, 3), mar = c(4, 4.2, 2.4, 1), oma = c(3, 2, 0, 0))
+pdf(file.path(OUTD, "panels.pdf"), width = 10.5, height = 12)
+pdf(file.path(OUTD, "panels.pdf"))
+#op <- par(mfrow = c(4, 3), mar = c(4, 4.2, 2.4, 1), oma = c(3, 2, 0, 0))
+op <- par(mfrow = c(3, 2), mar = c(4, 4.2, 2.4, 1), oma = c(3, 2, 0, 0),cex.main = 1.3,
+          cex.lab  = 1.2,
+          cex.axis = 1.2)
 for (tag in names(ROWS)) for (key in names(COLS))
   panel(tag, key, main = if (tag == "syn1") COLS[[key]] else "")
 par(op)
