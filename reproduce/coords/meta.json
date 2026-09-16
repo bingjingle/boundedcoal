@@ -1,0 +1,14 @@
+{
+ "tau": {
+  "syn1": 1.0,
+  "syn2": 0.7,
+  "syn3": 0.71,
+  "syn4": 0.55,
+  "covid": 0.5858767153195582
+ },
+ "methods": {
+  "RI_BM": "Random integral \u2014 BM",
+  "RI_SE": "Random integral \u2014 SE",
+  "DIS": "Discrete (phylodyn)"
+ }
+}
