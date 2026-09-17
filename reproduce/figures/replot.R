@@ -32,7 +32,7 @@ ROWS <- list(syn1 = list(lab = expression(N[e1](t) == 1),           tau = 1.00, 
              syn3 = list(lab = expression(N[e3](t) == 25 * e^(-5*t)), tau = 0.71, ylim = 120))
             # syn4 = list(lab = expression(N[e4](t) == 25 * e^(-5*t)), tau = 0.55, ylim = 120))
 #COLS <- list(RI_BM = "RI-BM", RI_SE = "RI-SE", DIS = "Discrete (phylodyn)")
-COLS <- list(RI_BM = "RI-BM", DIS = "Discrete (phylodyn)")
+COLS <- list(RI_BM = "RI", DIS = "Discrete")
 T0   <- as.Date("2020-06-08")      # covid_plot.R: date of sampling
 
 band_cols <- function(d, lik) {
@@ -61,7 +61,7 @@ panel <- function(tag, key, ylim = NULL, main = NULL) {
     stats::quantile(unlist(d[grep("_hi_", names(d))]), 0.97, na.rm = TRUE)
   tau <- if (!is.null(cfg)) cfg$tau else max(d$x)
   covid <- tag == "covid"
-  plot(NA, xlim = c(tau, 0), ylim = c(0, ylim),
+  plot(NA, xlim = c(tau, 0), ylim = if (tag=="covid") c(0,10) else c(0, ylim),
        xlab = if (tag=="syn3") "Time (past to present)" else "", ylab = if (key=="RI_BM") expression(N[e](t)) else "",
        main = if (is.null(main)) COLS[[key]] else main,
        xaxt = if (covid) "n" else "s", bty = "l")
@@ -101,11 +101,32 @@ for (tag in names(ROWS)) for (key in names(COLS)) {
   par(mar = c(4, 4.2, 2.4, 1)); panel(tag, key); invisible(dev.off())
 }
 
+
+df <- data.frame(
+  month = factor(c("Jan","Feb","Mar","Apr","May","Jun"),
+                 levels = c("Jan","Feb","Mar","Apr","May","Jun"),
+                 ordered = TRUE),
+  cases = c(20, 44, 6947, 8698, 7315, 13662)
+)
+
+
 # ---- the three COVID figures -----------------------------------------------
+pdf(file.path(OUTD, sprintf("covid_2_%s.pdf", key)), width = 8.6, height = 3.6)
+par(mfrow=c(1,3),mar = c(4, 4.2, 2.4, 1));  
+
 for (key in names(COLS)) {
   f <- file.path(COORD, sprintf("panel_covid_%s.csv", key))
   if (!file.exists(f)) next
-  pdf(file.path(OUTD, sprintf("covid_%s.pdf", key)), width = 4.6, height = 3.6)
-  par(mar = c(4, 4.2, 2.4, 1)); panel("covid", key); invisible(dev.off())
+  panel("covid", key)
+  if (key=="RI_BM"){legend("top", horiz = TRUE, bty = "n",
+                        legend = c("BC (bounded)", "SC (standard)"),
+                        col = c(COL_BC, COL_SC), lwd = LWD_MED)}
+}
+
+
+  barplot(df$cases, names.arg=df$month, col="steelblue", border=NA,
+          xlab="Month of 2020", ylab="Cases", cex.names=0.8)
+  
+  invisible(dev.off())
 }
 cat("wrote", length(list.files(OUTD)), "files to figures_R/\n")
