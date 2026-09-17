@@ -37,11 +37,15 @@ df <- data.frame(
 )
 
 barplot(df$cases, names.arg=df$month, col="steelblue", border=NA,
-        xlab="Month (2020)", ylab="Cases", cex.names=0.8)
+        xlab="Month of 2020", ylab="Cases", cex.names=0.8)
 
 
 ##Discretized
-res1_mcmc<-mcmc_sampling(data,alg="bound_ESS",nsamp=30000,nburnin=500,ngrid=100,bound=bound)
+res1_mcmc<-mcmc_sampling(data,alg="bound_ESS",nsamp=30000,nburnin=3000,ngrid=100,bound=bound)
+res2_mcmc<-mcmc_sampling(data,alg="ESS",nsamp=30000,nburnin=3000,ngrid=100)
+
+data1<-data.frame(x=res1_mcmc$x,bc_med=res1_mcmc$med,bc_low_eq=res1_mcmc$low,bc_hi_eq=res1_mcmc$hi,sc_med=res2_mcmc$med,sc_low_eq=res2_mcmc$low,sc_hi_eq=res2_mcmc$hi)
+write.csv(data1, "~/Documents/boundedcoal/boundedcoal/reproduce/coords/panel_covid_DIS.csv", row.names = FALSE)
 
 par(mfrow=c(1,1))
 plot(ski$time,c(ski$population.size),type="S",xlim=c(0.6,0),xaxt="n",ylab="Ne",xlab="Time",ylim=c(0,10),col="white")
