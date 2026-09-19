@@ -16,6 +16,10 @@ COL_SC  <- "#1f77b4"    # standard coalescent
 ALPHA   <- 0.25      # band fill opacity, as adjustcolor(., alpha.f=) in covid_plot.R
 BAND    <- "eq"      # "eq" = equal-tailed 2.5/97.5% (published); "hpd" = minimal width
 LWD_MED <- 2; LWD_BAND <- 1
+# Draw the discretised method as a step function?  The published figures draw it
+# as a smooth curve (see Biometrika2025/github2/*_DIS100_with_BM.pdf), so FALSE
+# matches them and the RI columns.  TRUE shows the piecewise-constant grid.
+STEP_DIS <- FALSE
 # ---------------------------------------------------------------------------
 
 here    <- tryCatch(dirname(normalizePath(sub("^--file=", "", grep("^--file=",
@@ -56,7 +60,7 @@ draw_one <- function(d, lik, col, step) {
 panel <- function(tag, key, ylim = NULL, main = NULL) {
   f <- file.path(COORD, sprintf("panel_%s_%s.csv", tag, key))
   if (!file.exists(f)) { message("missing: ", basename(f)); return(invisible(FALSE)) }
-  d <- read.csv(f); step <- key == "DIS"
+  d <- read.csv(f); step <- STEP_DIS && key == "DIS"
   cfg <- ROWS[[tag]]
   if (is.null(ylim)) ylim <- if (!is.null(cfg)) cfg$ylim else
     stats::quantile(unlist(d[grep("_hi_", names(d))]), 0.97, na.rm = TRUE)

@@ -57,7 +57,10 @@ for (p in c("ape","phylodyn")) cat(sprintf("  %-12s %s\n", p,
   if (p %in% rownames(installed.packages())) as.character(packageVersion(p)) else "MISSING"))
 RC
 
-# Pinned to d3a6e5f (2026-07-24).  The previous pin 4a3c160 (2026-03-21) predated
+# Pinned to ba7b607 (2026-09-19): switches the standard-coalescent path from ESS
+# to ESS2 and doubles the random-walk step variance, so SC now agrees with BNPR.
+# The bounded path is untouched -- BC results are unchanged (verified: medians
+# agree to 3e-3).  Previously d3a6e5f (2026-07-24).  The previous pin 4a3c160 (2026-03-21) predated
 # 84 commits including a rewrite of R/bounded_coal_functions.R and a likelihood
 # fix; under it the bounded discrete runs gave 39-43% coverage where 95% is
 # nominal, and crashed outright on syn1 at prec 0.1 and syn4 at 0.01.  If you
@@ -78,7 +81,7 @@ if (!has || !bounded) {
   cat("  installing JuliaPalacios/phylodyn (has the bounded-coalescent code)\n")
   if (!requireNamespace("remotes", quietly=TRUE))
     install.packages("remotes", repos="https://cloud.r-project.org", quiet=TRUE)
-  remotes::install_github("JuliaPalacios/phylodyn", ref="d3a6e5f39a6622eb252914636ef6e64d011d8568",
+  remotes::install_github("JuliaPalacios/phylodyn", ref="ba7b607",
                           upgrade="never", quiet=TRUE)
   suppressMessages(library(phylodyn))
   bounded <- exists("bounded_skyline_ascent", where=asNamespace("phylodyn"))
