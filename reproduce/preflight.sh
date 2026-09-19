@@ -57,6 +57,11 @@ for (p in c("ape","phylodyn")) cat(sprintf("  %-12s %s\n", p,
   if (p %in% rownames(installed.packages())) as.character(packageVersion(p)) else "MISSING"))
 RC
 
+# Pinned to d3a6e5f (2026-07-24).  The previous pin 4a3c160 (2026-03-21) predated
+# 84 commits including a rewrite of R/bounded_coal_functions.R and a likelihood
+# fix; under it the bounded discrete runs gave 39-43% coverage where 95% is
+# nominal, and crashed outright on syn1 at prec 0.1 and syn4 at 0.01.  If you
+# bump this pin, re-run every discrete result -- the RI columns are unaffected.
 # phylodyn: MUST be JuliaPalacios/phylodyn.  mdkarcher/phylodyn is the upstream
 # package and contains no bounded-coalescent code at all -- no bound_ESS, no
 # bounded_skyline_ascent -- so the discrete bounded runs cannot work against it.
@@ -73,7 +78,7 @@ if (!has || !bounded) {
   cat("  installing JuliaPalacios/phylodyn (has the bounded-coalescent code)\n")
   if (!requireNamespace("remotes", quietly=TRUE))
     install.packages("remotes", repos="https://cloud.r-project.org", quiet=TRUE)
-  remotes::install_github("JuliaPalacios/phylodyn", ref="4a3c160500ccf3470c31fadf5da9e4ef99cf4bb8",
+  remotes::install_github("JuliaPalacios/phylodyn", ref="d3a6e5f39a6622eb252914636ef6e64d011d8568",
                           upgrade="never", quiet=TRUE)
   suppressMessages(library(phylodyn))
   bounded <- exists("bounded_skyline_ascent", where=asNamespace("phylodyn"))

@@ -22,7 +22,8 @@ here    <- tryCatch(dirname(normalizePath(sub("^--file=", "", grep("^--file=",
              commandArgs(FALSE), value = TRUE)[1]))), error = function(e) ".")
 if (is.na(here) || !nzchar(here)) here <- "."
 
-here<-"~/Documents/boundedcoal/boundedcoal/reproduce/"
+# (path is auto-detected above; set BC_REPRODUCE to override)
+if (nzchar(Sys.getenv("BC_REPRODUCE"))) here <- Sys.getenv("BC_REPRODUCE")
 COORD <- file.path(here, "coords")
 OUTD  <- file.path(here, "figures_R")
 dir.create(OUTD, showWarnings = FALSE)
@@ -32,7 +33,7 @@ ROWS <- list(syn1 = list(lab = expression(N[e1](t) == 1),           tau = 1.00, 
              syn3 = list(lab = expression(N[e3](t) == 25 * e^(-5*t)), tau = 0.71, ylim = 120))
             # syn4 = list(lab = expression(N[e4](t) == 25 * e^(-5*t)), tau = 0.55, ylim = 120))
 #COLS <- list(RI_BM = "RI-BM", RI_SE = "RI-SE", DIS = "Discrete (phylodyn)")
-COLS <- list(RI_BM = "RI", DIS = "Discrete")
+COLS <- list(RI_BM = "RI-BM", DIS = "Discrete-100")
 T0   <- as.Date("2020-06-08")      # covid_plot.R: date of sampling
 
 band_cols <- function(d, lik) {
@@ -62,7 +63,7 @@ panel <- function(tag, key, ylim = NULL, main = NULL) {
   tau <- if (!is.null(cfg)) cfg$tau else max(d$x)
   covid <- tag == "covid"
   plot(NA, xlim = c(tau, 0), ylim = if (tag=="covid") c(0,10) else c(0, ylim),
-       xlab = if (tag=="syn3") "Time (past to present)" else "", ylab = if (key=="RI_BM") expression(N[e](t)) else "",
+       xlab = if (tag=="syn3") "Time (past to present)" else "", ylab = if (key == names(COLS)[1] && !is.null(cfg)) cfg$lab else "",
        main = if (is.null(main)) COLS[[key]] else main,
        xaxt = if (covid) "n" else "s", bty = "l")
   if (covid) {
@@ -79,12 +80,11 @@ panel <- function(tag, key, ylim = NULL, main = NULL) {
 }
 
 # ---- the 4 x 3 simulation grid ---------------------------------------------
-pdf(file.path(OUTD, "panels.pdf"), width = 10.5, height = 12)
-pdf(file.path(OUTD, "panels.pdf"))
+pdf(file.path(OUTD, "panels.pdf"), width = 8.0, height = 10.0)
 #op <- par(mfrow = c(4, 3), mar = c(4, 4.2, 2.4, 1), oma = c(3, 2, 0, 0))
-op <- par(mfrow = c(3, 2), mar = c(4, 4.2, 2.4, 1), oma = c(3, 2, 0, 0),cex.main = 1.3,
+op <- par(mfrow = c(3, 2), mar = c(4, 5.6, 2.4, 1), oma = c(3, 2, 0, 0),cex.main = 1.3,
           cex.lab  = 1.2,
-          cex.axis = 1.2)
+          cex.axis = 1.2, las = 1)
 for (tag in names(ROWS)) for (key in names(COLS))
   panel(tag, key, main = if (tag == "syn1") COLS[[key]] else "")
 par(op)
@@ -128,5 +128,4 @@ for (key in names(COLS)) {
           xlab="Month of 2020", ylab="Cases", cex.names=0.8)
   
   invisible(dev.off())
-}
 cat("wrote", length(list.files(OUTD)), "files to figures_R/\n")
