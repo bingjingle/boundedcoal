@@ -1,0 +1,42 @@
+\begin{table}[H]
+\centering
+\begin{adjustbox}{width=\textwidth}
+\begin{tabular}{p{3.0cm} p{3.0cm} p{4.6cm} p{4.0cm} p{3.8cm} p{2.8cm}}
+\toprule[1.5pt]
+\textbf{Effective Population Size} & \textbf{Methods} & \textbf{SSE at 100 Grids}
+& \textbf{Coverage at 100 Grids} & \textbf{Credible Interval Width} & \textbf{Running Time} \\
+\midrule
+\multirow{4}{*}{$N_{e_1}(t)$}
+& BC-RI & 0.53 (0.17, 1.69) & 100\% (100\%, 100\%) & 1.78 (1.61, 1.88) & 4.47 $\pm$ 0.25 s \\
+& SC-RI & 3.79 (2.60, 5.80) & 100\% (100\%, 100\%) & 1.01 (0.95, 1.07) & 0.64 $\pm$ 0.13 s \\
+& BC-Discrete & \textbf{0.01 (0.00, 0.03)} & 100\% (100\%, 100\%) & 1.10 (0.96, 1.24) & 9.32 $\pm$ 0.64 s \\
+& SC-Discrete & 0.22 (0.14, 0.37) & 100\% (100\%, 100\%) & 0.83 (0.78, 0.90) & 2.75 $\pm$ 0.04 s \\
+\midrule
+\multirow{4}{*}{$N_{e_2}(t)$}
+& BC-RI & 30.50 (17.74, 54.71) & 100\% (100\%, 100\%) & 5.09 (4.71, 5.78) & 5.72 $\pm$ 0.43 s \\
+& SC-RI & 34.34 (22.35, 42.65) & 100\% (99\%, 100\%) & 1.72 (1.53, 1.90) & 0.62 $\pm$ 0.03 s \\
+& BC-Discrete & \textbf{22.34 (12.82, 37.61)} & 99\% (98\%, 99\%) & 8.56 (7.98, 11.45) & 19.04 $\pm$ 0.60 s \\
+& SC-Discrete & 100.01 (82.03, 113.54) & 61\% (55\%, 71\%) & 2.51 (1.94, 2.73) & 2.87 $\pm$ 0.02 s \\
+\midrule
+\multirow{4}{*}{$N_{e_3}(t)$}
+& BC-RI & 862.78 (684.04, 1061.56) & 57\% (53\%, 62\%) & 16.35 (14.15, 18.91) & 8.05 $\pm$ 0.79 s \\
+& SC-RI & \textbf{614.24 (416.76, 979.43)} & 92\% (89\%, 93\%) & 15.60 (12.39, 18.64) & 0.75 $\pm$ 0.03 s \\
+& BC-Discrete & 1301.12 (1082.14, 1503.13) & 98\% (97\%, 98\%) & 17.67 (15.55, 20.66) & 23.59 $\pm$ 0.53 s \\
+& SC-Discrete & 935.85 (765.01, 1137.03) & 82\% (79\%, 86\%) & 11.43 (10.24, 12.51) & 2.94 $\pm$ 0.02 s \\
+
+\bottomrule[1.5pt]
+\end{tabular}
+\end{adjustbox}
+\captionsetup{font=footnotesize}
+\caption{Performance over 100 grid points across 30 simulated datasets with 100
+tips, under the effective population size trajectories $N_{e_1}(t)$, $N_{e_2}(t)$
+and $N_{e_3}(t)$ with upper constraints $\tau_1$, $\tau_2$, $\tau_3$. Inference
+for X-RI uses 1{,}000{,}000 MCMC iterations following a burn-in of 1{,}000{,}000;
+BC-Discrete uses 200{,}000 following 100{,}000; SC-Discrete uses 2{,}000{,}000
+following 100{,}000, thinned by 20, since the shorter chain does not converge
+under the standard coalescent. Columns~3--5 report the $0.50$ quantile ($0.25$
+quantile, $0.75$ quantile). Boldface denotes the smallest median SSE within each
+simulation setting. Running time is the mean $\pm$ standard deviation across the
+30 datasets, per 10{,}000 MCMC iterations.}
+\label{table:rerun100}
+\end{table}
