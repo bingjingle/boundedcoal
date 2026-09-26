@@ -1,0 +1,9 @@
+# New reproduction outputs; archived results remain tracked.
+/deliverables/
+/out/
+/logs/
+/table/
+__pycache__/
+*.pyc
+.Rhistory
+.RData

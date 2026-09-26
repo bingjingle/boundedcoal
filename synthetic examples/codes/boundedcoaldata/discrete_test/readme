@@ -1,9 +1,0 @@
-test_BC_15.R means bounded coalescent for Ne2 with bound=1.5
-test_SC_15.R means standard coalescent for Ne2 
-test_BC_07.R means bounded coalescent for Ne2 with bound=0.7
-test_SC_07.R means standard coalescent for Ne2 
-
-for bound=0.7, the data is included in the code
-for bound=1.5, please load the dataset test100_samplesize2_tau1.5.rda
-
-bound, Ngrid, noise_var at the beginning of each code is user defined.

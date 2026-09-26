@@ -1,103 +1,68 @@
-# Bounded Coalescent: Synthetic Experiments
+<p align="center">
+  <img src="docs/assets/bounded-coalescent.svg" alt="Bounded coalescent: a schematic genealogy whose common ancestor lies within a time bound" width="960">
+</p>
 
-This repository contains all datasets and code used for the synthetic experiments in Sections 5.2 and 5.3.
+# Bounded coalescent
 
----
+**Simulation and phylodynamic inference for genealogies with a bounded time to their most recent common ancestor.**
 
-## 📁 Directory Structure
+Code and data accompanying *Phylodynamic inference with the bounded coalescent: a point process perspective*, by **Bingjing Tang, Shuangping Li, and Julia A. Palacios**.
 
-- boundedcoal/
-  - synthetic examples/
-    - data/
-    - codes/
-      - standardcoaldata/
-      - boundedcoaldata/
+[Find a table or figure](#from-the-paper-to-the-code) · [Redraw the results](#quick-start) · [Analysis contributions](analyses/README.md) · [Reproducibility notes](docs/reproducibility.md)
 
+## Overview
 
-📊 Synthetic Datasets
+The bounded coalescent conditions a genealogy on its most recent common ancestor occurring before a specified time bound. This repository brings together the simulation algorithms, maximum-likelihood examples, synthetic posterior-inference experiments, and Washington State COVID-19 analysis used in the paper.
 
-All synthetic datasets are stored in:
+The inference examples compare the bounded coalescent (**BC**) and standard coalescent (**SC**) likelihoods, using random-integral (**RI**) and discretized methods. The submitted synthetic comparison uses three population-size trajectories, 100 tips per genealogy, and 30 datasets per trajectory.
 
-boundedcoal/synthetic examples/data
+## From the paper to the code
 
-File naming convention:
+Numbering follows the submitted manuscript. Some historical filenames refer to earlier drafts; use this index to locate the current results.
 
-- syn_i_std_ntip_j.rda  
-  Contains 30 datasets simulated from the standard coalescent likelihood  
-  under effective population size trajectory Ne_i(t)  
-  with j tips.
+| Paper result | Location | What is available |
+| :--- | :--- | :--- |
+| **Figures 2–3** · Simulation validation and BC/SC comparison | [`simulation/`](simulation/) | Simulation functions and original plotting scripts |
+| **Table 1** · Simulation timing benchmark | [`simulation/`](simulation/) | Partial benchmark code and saved simulation data |
+| **Figure 4** · Maximum-likelihood examples | [`analyses/maximum_likelihood/`](analyses/maximum_likelihood/) | Original MLE scripts and a dedicated MLE entry point |
+| **Figure 5 & Table 2** · Synthetic posterior inference | [`analyses/synthetic/`](analyses/synthetic/) | Synthetic datasets and original experiment scripts |
+| **Figure 6** · Washington State COVID-19 | [`analyses/covid/`](analyses/covid/) | CCD0 genealogy and original analysis source |
+| **Figures 5–6 redraws & Table 2 summary** | [`analyses/reproduction/`](analyses/reproduction/) | Saved curve coordinates, plotting tools, samplers, and recorded results |
 
-- syn_i_bounded_ntip_j.rda  
-  Contains 30 datasets simulated from the bounded coalescent likelihood  
-  under the same trajectory Ne_i(t)  
-  with j tips.
+The saved coordinates can be redrawn immediately. Full inference requires additional dependencies and substantial computation. The [reproducibility notes](docs/reproducibility.md) distinguish submitted results, later reruns, and historical scripts, including the remaining gaps in exact reproduction.
 
----
+## Quick start
 
-## Section 5.2 – Standard Coalescent Experiments
+Clone the repository and redraw the saved synthetic and COVID-19 results with **base R**. This does not run MCMC or install packages.
 
-Code location:
+```bash
+git clone https://github.com/bingjingle/boundedcoal.git
+cd boundedcoal
+bash analyses/reproduction/run_all.sh redraw
+```
 
-boundedcoal/synthetic examples/codes/standardcoaldata
+For dependency checks, sampler settings, and optional reruns, see the [reproduction guide](analyses/reproduction/README.md). Original datasets and recorded result files are retained separately from newly generated output.
 
-All datasets here are simulated from the standard coalescent model.
+## Repository layout
 
-Subfolders:
+```text
+boundedcoal/
+├── simulation/                 # Algorithms, validation, timing benchmark
+├── analyses/
+│   ├── maximum_likelihood/     # Figure 4
+│   ├── synthetic/              # Figure 5 and Table 2 experiment sources
+│   ├── covid/                  # Figure 6 genealogy and original source
+│   └── reproduction/           # Shared samplers, saved curves, redraw tools
+├── archive/cell_lineage/       # Earlier cell-lineage and UPGMA experiments
+└── docs/                       # Reproducibility and file-move index
+```
 
-- ./RI_BM  
-  Brownian motion kernels under:
-  - Ne = 1
-  - Ne(t) = 3 exp(-t)
-  - Ne(t) = 25 exp(-5t)
+The repository remains at **[github.com/bingjingle/boundedcoal](https://github.com/bingjingle/boundedcoal)**, the address cited in the submission. Earlier work remains available in Git history; [the file-move index](docs/file-moves.json) connects the previous layout to this one.
 
-- ./SE  
-  Squared exponential kernels under the same three trajectories.
+## Contributions and citation
 
-INLA implementation:
+Analysis-specific contributions are documented in [`analyses/README.md`](analyses/README.md). Paper authorship is preserved in the citation below.
 
-boundedcoal/synthetic examples/codes/standardcoaldata/RI_BM/INLA.R
+> Tang, B., Li, S., and Palacios, J. A. (2026). *Phylodynamic inference with the bounded coalescent: a point process perspective*. Manuscript.
 
-
-
-
----
-
-## Section 5.3 – Bounded Coalescent Experiments
-
-Code location:
-
-boundedcoal/synthetic examples/codes/boundedcoaldata
-
-All datasets here are simulated from the bounded coalescent model.
-
-Subfolders:
-
-- ./RI_BM  
-  Brownian motion kernels under:
-  - Ne = 1, tau = 1
-  - Ne(t) = 3 exp(-t), tau = 0.7
-  - Ne(t) = 25 exp(-5t), tau = 0.71
-
-- ./SE  
-  Squared exponential kernels under the same three scenarios.
-
-
-
-### Python File Naming
-
-- ****_**_bound_syn*_**_**.py  
-  Inference under bounded coalescent likelihood
-
-- ****_**_std_syn*_**_**.py  
-  Inference under standard coalescent likelihood
-
----
-
-## Reproducibility
-
-Each dataset file contains 30 simulated genealogies.
-
-Scripts are organized by:
-- Model type (standard vs bounded)
-- Kernel type (RI_BM vs SE)
-- Effective population size trajectory
+The discretized inference implementation uses [`JuliaPalacios/phylodyn`](https://github.com/JuliaPalacios/phylodyn); see the reproduction guide for the required revision.

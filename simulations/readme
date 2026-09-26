@@ -1,5 +1,0 @@
-our algorithm.R/simul_bounded.R contains the R implementation of Algorithm 1, which combines time transformation and thinning for simulating coalescent times under the bounded coalescent model.
-naivesyn1data_ntip100_samplesize3000_tau0.5.rda and thinsyn1data_ntip100_samplesize3000_tau0.5.rda are the simulated datasets used to produce Figure 1 and Table 2.
-comparison of three methods.R provides the partial R code used to generate Table 1, comparing the three methods included in the paper.
-
-plots.R is used to generate figure 2 and 3 in the paper.

@@ -1,3 +1,0 @@
-We uploaded all datasets for section 5.2 and 5.3 in the folder data. For example, syn i_std_ntip_j.rda includes 30 datasets simulated from standard coalescent likelihood 
-under effective population size trajectory $Ne_{i}(t)$ with tips j, while syn i_bounded_ntip_j.rda includes 30 datasets simulated from bounded coalescent likelihood 
-under effective population size trajectory $Ne_{i}(t)$ with tips j.

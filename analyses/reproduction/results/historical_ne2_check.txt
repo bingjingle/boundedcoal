@@ -1,0 +1,9 @@
+Method             n                         SSE  rerun (earlier draft)         Coverage % rerun (earlier draft)          Width rerun (earlier draft)      s/10k rerun (earlier draft)
+BC-RI-BM           3     18.85 (  15.96,   31.80) vs   21.93 ( 10.93,  41.43)    100 (100, 100) vs  100 (100, 100)    4.99 ( 4.54,  5.22) vs  5.01       5.6+-    0.6 vs     2.5
+SC-RI-BM           3     39.52 (  27.68,   40.38) vs   46.76 ( 34.54,  64.46)    100 (100, 100) vs   85 ( 60, 100)    1.52 ( 1.49,  1.71) vs  1.82       0.6+-    0.0 vs     3.9
+BC-RI-SE           -   (not run yet)
+SC-RI-SE           -   (not run yet)
+BC-Discrete-BM     -   (not run yet)
+SC-Discrete-BM     -   (not run yet)
+
+wrote table/historical_ne2_check.csv and table/historical_ne2_per_dataset.csv
