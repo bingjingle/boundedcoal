@@ -25,7 +25,7 @@ CO, FIG = os.path.join(BASE, "coords"), os.path.join(BASE, "figures")
 os.makedirs(FIG, exist_ok=True)
 
 T0 = np.datetime64("2020-06-08")            # covid_plot.R: date of sampling
-TAU = 0.5858767153195582                    # TMRCA of the UPGMA tree
+TAU = 0.5858767153195582                    # TMRCA of the scaled CCD0 genealogy
 METHODS = [("RI_BM", "Random integral — BM",  False),
            ("RI_SE", "Random integral — SE",  False),
            ("DIS",   "Discrete (phylodyn)",        True)]

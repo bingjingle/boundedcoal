@@ -68,7 +68,7 @@ np.random.seed(args.seed)
 BOUNDED = not args.standard
 
 # -----------------------------------------------------------------------------
-# UPGMA100 real data: same setup as the pasted real-data Python code
+# Input genealogy
 # -----------------------------------------------------------------------------
 if args.input_file.endswith(".rda"):
     import pyreadr

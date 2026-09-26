@@ -12,7 +12,7 @@ import numpy as np
 
 def parse_args():
     p = argparse.ArgumentParser(
-        description="UPGMA100 bounded-coalescent RI inference with Brownian-motion prior."
+        description="Coalescent RI inference with Brownian-motion prior."
     )
     p.add_argument("--const", type=float, required=True,
                    help="BM intercept-scale multiplier: sigma0=sqrt(alpha/beta)*const.")
@@ -81,7 +81,7 @@ Ngrid = 100
 
 if points_inhomo.size != N:
     raise ValueError(
-        f"Expected {N} UPGMA coalescent times in bt_adj, found {points_inhomo.size}."
+        f"Expected {N} coalescent times, found {points_inhomo.size}."
     )
 
 x4 = np.linspace(0.0, T, Ngrid + 1)[1:]
@@ -332,17 +332,7 @@ for j in range(Ngrid):
 
 output_dir = args.output_dir
 os.makedirs(output_dir, exist_ok=True)
-# ---------------------------------------------------------------------------
-# NOTE (rerun 2026-09-15): the upstream script also wrote a second copy of the
-# chain under the fixed name
-#     real100_BM_RI_const_{const}_nsim1_{n1}_nsim2_{n2}.npz
-# which does NOT depend on --tag.  Running several datasets or both likelihoods
-# concurrently into one --output-dir therefore makes every job write that same
-# path at the same time: a race that both corrupts the file and costs ~320 MB of
-# duplicated I/O per run.  It is dropped here.  Nothing about the sampler, the
-# seed or the summaries changes -- only which files are written.  The full
-# information is still in {tag}.npz below.
-# ---------------------------------------------------------------------------
+# Use a tag-specific output filename to keep concurrent runs separate.
 output_dir = args.output_dir
 os.makedirs(output_dir, exist_ok=True)
 

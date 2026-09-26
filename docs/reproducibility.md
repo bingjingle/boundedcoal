@@ -8,7 +8,7 @@ This index was checked against the Overleaf manuscript on 26 September 2026. Tab
 
 ## Maximum likelihood: Figure 4
 
-[`analyses/maximum_likelihood/`](../analyses/maximum_likelihood/) contains the original scripts. The three scenarios have population sizes `1`, `3 exp(-t)`, and `25 exp(-5t)`, with bounds `1`, `0.7`, and `0.71`. The original scripts embed their input genealogies. See that folder's README for the standalone MLE entry point and the input difference between the second MLE example and the later posterior redraw bundle.
+[`analyses/maximum_likelihood/`](../analyses/maximum_likelihood/) contains the original scripts. The three scenarios have population sizes `1`, `3 exp(-t)`, and `25 exp(-5t)`, with bounds `1`, `0.7`, and `0.71`. The original scripts embed their input genealogies. See the [MLE run notes](maximum-likelihood.md) for the standalone entry point and the input difference between the second MLE example and the later posterior redraw bundle.
 
 ## Synthetic posterior inference: Figure 5 and Table 2
 
@@ -22,16 +22,14 @@ This index was checked against the Overleaf manuscript on 26 September 2026. Tab
 
 SSE, pointwise interval coverage, and mean interval width are evaluated on 100 grid points and summarized across datasets. Coverage is the fraction of evaluation points covered by 95% equal-tailed intervals, not simultaneous coverage of an entire trajectory. Because the precision priors differ, the comparison does not isolate discretization alone.
 
-[`analyses/reproduction/`](../analyses/reproduction/) includes the recorded Table 2 LaTeX summary, saved plotting coordinates, and historical rerun tools. Earlier files named `table1_check` refer to an older posterior-inference spot check, **not** the current Table 1 simulation benchmark. The historical job drivers include additional squared-exponential and fourth-scenario experiments and do not implement the complete submitted Table 2 schedule. Consult the reproduction README before launching them.
+[`analyses/reproduction/`](../analyses/reproduction/) includes the recorded Table 2 LaTeX summary, saved plotting coordinates, and historical rerun tools. Earlier files named `table1_check` refer to an older posterior-inference spot check, **not** the current Table 1 simulation benchmark. The historical job drivers include additional squared-exponential and fourth-scenario experiments and do not implement the complete submitted Table 2 schedule. Consult the [reproduction run notes](reproduction.md) before launching them.
 
 ## COVID-19: Figure 6
 
 [`analyses/covid/`](../analyses/covid/) contains the original analysis source and CCD0 genealogy for the 103 Washington State sequences collected on 8 June 2020. Saved coordinates and redraw tools are in [`analyses/reproduction/`](../analyses/reproduction/). The manuscript identifies the sequence dataset as [GISAID EPI_SET_260825mx](https://doi.org/10.55876/gis8.260825mx).
 
-The older UPGMA and cell-lineage experiments are retained in [`archive/cell_lineage/`](../archive/cell_lineage/); they are not the Washington State COVID-19 example.
-
 ## Preservation and scope of this cleanup
 
-The reorganization starts from commit `b89e8177953177179fe3a69b164df97dc5769aae`. The [file-move index](file-moves.json) records each original tracked path and its new location. Datasets and recorded numerical results are retained. The changes organize files, clarify attribution, repair execution paths, and document existing limitations; they do not revise the manuscript's scientific conclusions or rerun its full posterior analysis.
+The reorganization starts from commit `b89e8177953177179fe3a69b164df97dc5769aae`. The [file-move index](file-moves.json) records the original paths and current locations of retained files. Datasets and numerical results for the paper are retained. The changes organize files, clarify attribution, repair execution paths, and document existing limitations; they do not revise the manuscript's scientific conclusions or rerun its full posterior analysis.
 
-Original exploratory scripts may still depend on intermediate objects or historical environments. Folder READMEs distinguish them from supported entry points. A successful redraw verifies that stored coordinates can be plotted; it does not independently validate the posterior samples or reproduce a complete MCMC experiment.
+Original exploratory scripts may still depend on intermediate objects or historical environments. The run notes distinguish them from supported entry points. A successful redraw verifies that stored coordinates can be plotted; it does not independently validate the posterior samples or reproduce a complete MCMC experiment.
