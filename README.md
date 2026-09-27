@@ -1,6 +1,6 @@
 # Bounded coalescent
 
-Code and data accompanying *Phylodynamic inference with the bounded coalescent: a point process perspective*.
+Code and data accompanying *Phylodynamic inference with the bounded coalescent: a point process perspective*. The posterior inference analysis and interpretation were conducted by Shuangping Li and Julia Palacios.  
 
 The bounded coalescent conditions a genealogy on its time to the most recent common ancestor being less than a specified bound. This repository contains the simulation algorithms and statistical analyses described in the paper: maximum-likelihood estimation, posterior inference using simulated genealogies, and the Washington State COVID-19 example.
 
